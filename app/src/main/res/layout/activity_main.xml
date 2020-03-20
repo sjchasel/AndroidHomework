@@ -4,51 +4,62 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:includeFontPadding="false"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="-11dp"
-        android:layout_marginBottom="4dp"
-        android:scaleType="centerCrop"
-        app:srcCompat="@mipmap/bg"
-        tools:layout_editor_absoluteX="187dp"
-        tools:layout_editor_absoluteY="171dp" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="197dp"
+    <EditText
+        android:id="@+id/input"
+        android:layout_width="316dp"
+        android:layout_height="60dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginStart="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="94dp"
-        android:gravity="center_horizontal"
-        android:text="@string/happy"
-        android:textColor="@android:color/background_dark"
-        android:textSize="51sp" />
+        android:layout_marginStart="51dp"
+        android:layout_marginLeft="51dp"
+        android:layout_marginTop="253dp"
+        android:gravity="center"
+        android:autofillHints="@string/hint"
+        android:hint="@string/hint"
+        android:inputType="numberDecimal" />
 
-    <TextView
-        android:id="@+id/textView2"
+    <Button
+        android:id="@+id/FtoC"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="68dp"
+        android:layout_marginLeft="61dp"
+        android:layout_marginTop="433dp"
+        android:layout_toRightOf="@id/CtoF"
+        android:text="@string/FtoC" />
+
+    <Button
+        android:id="@+id/CtoF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="71dp"
-        android:layout_marginRight="71dp"
-        android:layout_marginBottom="55dp"
-        android:text="@string/from"
-        android:textColor="@android:color/black"
-        android:textSize="36sp" />
+        android:layout_marginTop="433dp"
+        android:layout_marginEnd="61dp"
+        android:layout_marginRight="61dp"
+        android:text="@string/CtoF" />
 
+    <TextView
+        android:id="@+id/hello"
+        android:layout_width="197dp"
+        android:layout_height="115dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="111dp"
+        android:layout_marginLeft="111dp"
+        android:layout_marginTop="119dp"
+        android:gravity="center"
+        android:text="@string/hello"
+        android:textSize="18sp" />
 </RelativeLayout>

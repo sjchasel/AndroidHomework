@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">生日快乐程序</string>
-    <string name="from">宋佳</string>
-    <string name="happy">祝你生日快乐！</string>
+    <string name="app_name">温度转换程序</string>
+    <string name="hello">你好！</string>
+    <string name="hint">请输入温度，并选择转换方式</string>
+    <string name="FtoC">华氏转摄氏</string>
+    <string name="CtoF">摄氏转华氏</string>
 </resources>

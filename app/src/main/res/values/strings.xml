@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">HappyBirthday</string>
-    <string name="happy">Happy Birthday!</string>
-    <string name="from">Song Jia</string>
+    <string name="app_name">TemperatureConversion</string>
+    <string name="hint">Please enter the temperature and select the conversion mode</string>
+    <string name="hello">hello</string>
+    <string name="FtoC">F to C</string>
+    <string name="CtoF">C to F</string>
 </resources>
