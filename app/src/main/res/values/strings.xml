@@ -4,4 +4,8 @@
     <string name="hello">hello</string>
     <string name="FtoC">F to C</string>
     <string name="CtoF">C to F</string>
+    <string name="label_add1">+1 point</string>
+    <string name="label_add2">+2 points</string>
+    <string name="label_add3">+3 points</string>
+    <string name="btn_reset_label">Reset</string>
 </resources>

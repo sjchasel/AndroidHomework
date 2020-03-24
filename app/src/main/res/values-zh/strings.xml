@@ -5,4 +5,8 @@
     <string name="hint">请输入温度，并选择转换方式</string>
     <string name="FtoC">华氏转摄氏</string>
     <string name="CtoF">摄氏转华氏</string>
+    <string name="btn_reset_label">重置</string>
+    <string name="label_add1">加一分</string>
+    <string name="label_add2">加二分</string>
+    <string name="label_add3">加三分</string>
 </resources>
