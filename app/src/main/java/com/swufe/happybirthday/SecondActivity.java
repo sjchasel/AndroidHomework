@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 public class SecondActivity extends AppCompatActivity {
     TextView score;
     TextView score2;
+
+    String TAG = "SecondActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,6 +20,29 @@ public class SecondActivity extends AppCompatActivity {
         score = findViewById(R.id.score);
         score2 = findViewById(R.id.score2);
     }
+
+    //解决屏幕旋转时数据丢失的问题
+    protected void onSaveInstanceState(Bundle outState){//bundle来保留数据
+        super.onSaveInstanceState(outState);
+
+        //保留数据
+        String scorea = ((TextView)findViewById(R.id.score)).getText().toString();
+        String scoreb = ((TextView)findViewById(R.id.score2)).getText().toString();
+        Log.i(TAG,"onSaveInstanceState:");
+        outState.putString("teama_score",scorea);
+        outState.putString("teamb_score",scoreb);
+    }
+
+    //还原数据
+    protected void onRestoreInstanceState(Bundle savedInstanceState){
+        super.onRestoreInstanceState(savedInstanceState);
+        String scorea = savedInstanceState.getString("teama_score");
+        String scoreb = savedInstanceState.getString("teamb_score");
+        Log.i(TAG,"onRestoreInstanceState:");
+        ((TextView)findViewById(R.id.score)).setText(scorea);
+        ((TextView)findViewById(R.id.score2)).setText(scoreb);
+    }
+
 
     public void btnAdd1(View btn){
         if(btn.getId()==R.id.btn_1) {
