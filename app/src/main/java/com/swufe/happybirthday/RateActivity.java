@@ -28,6 +28,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class RateActivity extends AppCompatActivity implements Runnable{
 
@@ -35,6 +37,7 @@ public class RateActivity extends AppCompatActivity implements Runnable{
     private float dollarRate = 0.1f;
     private float euroRate = 0.2f;
     private float wonRate = 0.3f;
+    String nowDate;
 
     EditText rmb;
     TextView show;
@@ -49,6 +52,8 @@ public class RateActivity extends AppCompatActivity implements Runnable{
         rmb = findViewById(R.id.rmb);
         show = findViewById(R.id.showOut);
 
+
+
         //获取SP里保存的数据
         SharedPreferences sharedPreferences = getSharedPreferences("myrate", Activity.MODE_PRIVATE);
         //还可以用:(推荐使用)
@@ -62,9 +67,24 @@ public class RateActivity extends AppCompatActivity implements Runnable{
         Log.i(TAG,"onCreate:sp wonrRate="+wonRate);
         Log.i(TAG,"onCreate:sp euroRate="+euroRate);
 
-        //开启子线程
-        Thread t = new Thread(this);//线程运行时，会去寻找当前对象的run方法
-        t.start();//写出这个命令才开始用，就会执行run方法
+        //获取当前时间
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date curDate =  new Date(System.currentTimeMillis());
+        nowDate = formatter.format(curDate);
+        Log.i(TAG,"现在的时间是："+nowDate);
+        String lastDate = sharedPreferences.getString("lastDate"," ");//获得sp里的时间
+        Log.i(TAG,"上次储存的时间是："+lastDate);
+
+        //进行判断
+        if(nowDate.equals(lastDate)){
+            Log.i(TAG,"当天已更新过数据");
+
+        }else{
+            //开启子线程
+            Thread t = new Thread(this);//线程运行时，会去寻找当前对象的run方法
+            t.start();//写出这个命令才开始用，就会执行run方法
+            Log.i(TAG,"当日首次打开，进行数据更新");
+        }
 
 
         handler = new Handler(){//处理获得的消息
@@ -160,6 +180,7 @@ public class RateActivity extends AppCompatActivity implements Runnable{
             editor.putFloat("dollar_rate",dollarRate);
             editor.putFloat("euro_rate",euroRate);
             editor.putFloat("won_rate",wonRate);
+            editor.putString("lastDate",nowDate);
             //写完之后注意保存
             editor.commit();
             Log.i(TAG,"onActivityResult:数据已保存到sharedPreferences");
@@ -207,7 +228,7 @@ public class RateActivity extends AppCompatActivity implements Runnable{
 //                i++;
 //            }
             Element table1 = tables.get(0);
-            Log.i(TAG,"run:table6="+table1);
+            Log.i(TAG,"run:table1="+table1);
             //获取TD中的数据
             Elements tds = table1.getElementsByTag("td");
 
@@ -263,4 +284,4 @@ public class RateActivity extends AppCompatActivity implements Runnable{
         }
         return out.toString();
     }
-  }
+}
