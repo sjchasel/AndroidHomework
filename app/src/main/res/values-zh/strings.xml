@@ -15,11 +15,11 @@
     <string name="btn_won_label">韩元</string>
     <string name="rmb">人民币</string>
     <string name="won">韩元</string>
-    <string name="japan">日元</string>
     <string name="dollar">美元</string>
     <string name="euro">欧元</string>
     <string name="tishi">请选择您的基准货币</string>
     <string name="yen">日元</string>
     <string name="btn_save_label">保存</string>
     <string name="menu_set_label">设置</string>
+    <string name="label_open_list">打开列表</string>
 </resources>

@@ -68,6 +68,7 @@ public class RateActivity extends AppCompatActivity implements Runnable{
         Log.i(TAG,"onCreate:sp euroRate="+euroRate);
 
         //获取当前时间
+        //也可以用Date today = Calenar.getInstance().getTime();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date curDate =  new Date(System.currentTimeMillis());
         nowDate = formatter.format(curDate);
@@ -97,6 +98,16 @@ public class RateActivity extends AppCompatActivity implements Runnable{
                     Log.i(TAG, "handleMessage: dollarRate:" + dollarRate);
                     Log.i(TAG, "handleMessage: euroRate:" + euroRate);
                     Log.i(TAG, "handleMessage: wonRate:" + wonRate);
+
+                    //将新设置的汇率写到SP里
+                    SharedPreferences sharedPreferences = getSharedPreferences("myrate", Activity.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();//要获得一个edit对象才可以改变sharedPreferences
+                    editor.putFloat("dollar_rate",dollarRate);
+                    editor.putFloat("euro_rate",euroRate);
+                    editor.putFloat("won_rate",wonRate);
+                    editor.putString("lastDate",nowDate);
+                    //写完之后注意保存
+                    editor.commit();
                     Toast.makeText(RateActivity.this, "汇率已更新", Toast.LENGTH_SHORT).show();
 
                 }
@@ -158,6 +169,10 @@ public class RateActivity extends AppCompatActivity implements Runnable{
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId()==R.id.menu_set){
             openConfig();
+        }else if(item.getItemId()==R.id.open_list){
+            //打开列表窗口
+            Intent list = new Intent(this,RateListActivity.class);
+            startActivity(list);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -196,7 +211,7 @@ public class RateActivity extends AppCompatActivity implements Runnable{
 //        }
 
         //用户用于保存获取的汇率
-        Bundle bundle = new Bundle();
+        Bundle bundle;
 
 
         //获取网络数据
@@ -216,6 +231,70 @@ public class RateActivity extends AppCompatActivity implements Runnable{
 //            e.printStackTrace();
 //        }
 
+        bundle = getFromBOC();
+
+        //bundle中保存所获取的汇率
+        //获取msg对象，用于返回主线程
+        Message msg = handler.obtainMessage();
+        msg.what = 5;//也可以写在上面那个方法的参数里
+        //msg.obj = "Hello from run()";
+        msg.obj = bundle;//带回一个bundle对象
+        handler.sendMessage(msg);//由handler把内容发送到消息队列里
+
+
+    }
+
+    private Bundle getFromBOC() {
+        Bundle bundle = new Bundle();
+        try {
+            Document doc = Jsoup.connect("https://www.boc.cn/sourcedb/whpj/").get();
+            //doc = Jsoup.parse(html);//把源文件给Jsoup，但可以用上面那句直接获取
+            Log.i(TAG, "run:" + doc.title());
+            Elements tables = doc.getElementsByTag("table");
+//            int i = 1;
+//            //用这个找我们需要的是第几个table
+//            for(Element table: tables){
+//                Log.i(TAG,"run:table["+i+"]="+table);
+//                i++;
+//            }
+            Element table1 = tables.get(1);
+            Log.i(TAG,"run:table1="+table1);
+            //获取TD中的数据
+            Elements tds = table1.getElementsByTag("td");
+
+            //提取td中的数据
+            for(int i=0;i<tds.size();i+=8){
+                Element td1 = tds.get(i);
+                Element td2 = tds.get(i+5);
+                Log.i(TAG,"run:"+td1.text()+"==>"+td2.text());
+                String str1 = td1.text();
+                String val = td2.text();
+
+                if(str1.equals("美元")){
+                    bundle.putFloat("dollar-rate",100f/Float.parseFloat(val));
+                }else if(str1.equals("欧元")){
+                    bundle.putFloat("euro-rate",100f/Float.parseFloat(val));
+                }else if(str1.equals("韩元")){
+                    bundle.putFloat("won-rate",100f/Float.parseFloat(val));
+                }
+            }
+
+//            for(Element td:tds){
+//                Log.i(TAG,"run:td="+td);
+//
+//                //输出后发现当td中含有html元素时，这两个方法的结果就有差别
+//                Log.i(TAG,"run:text="+td.text());
+//                Log.i(TAG,"run:html="+td.html());
+//
+//            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return bundle;
+    }
+
+    private Bundle getFromUsdCny() {
+        Bundle bundle = new Bundle();
         try {
             Document doc = Jsoup.connect("http://www.usd-cny.com/bankofchina.htm").get();
             //doc = Jsoup.parse(html);//把源文件给Jsoup，但可以用上面那句直接获取
@@ -260,17 +339,9 @@ public class RateActivity extends AppCompatActivity implements Runnable{
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        //bundle中保存所获取的汇率
-        //获取msg对象，用于返回主线程
-        Message msg = handler.obtainMessage();
-        msg.what = 5;//也可以写在上面那个方法的参数里
-        //msg.obj = "Hello from run()";
-        msg.obj = bundle;//带回一个bundle对象
-        handler.sendMessage(msg);//由handler把内容发送到消息队列里
-
-
+        return bundle;
     }
+
     private String inputStream2String(InputStream inputStream) throws IOException {
         final int bufferSize = 1024;
         final char[] buffer = new char[bufferSize];

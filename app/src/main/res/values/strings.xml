@@ -21,4 +21,5 @@
     <string name="euro">Euro</string>
     <string name="btn_save_label">Save</string>
     <string name="menu_set_label">Setting</string>
+    <string name="label_open_list">Openlist</string>
 </resources>
