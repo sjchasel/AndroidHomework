@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="fill_parent"
     android:layout_height="match_parent"
     android:paddingBottom="16dp"
     android:paddingLeft="16dp"
@@ -14,13 +14,12 @@
         android:id="@+id/itemTitle"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:text="@string/won"
         android:layout_width="fill_parent"/>
     <TextView
         android:id="@+id/itemDetail"
         android:layout_height="wrap_content"
         android:textSize="15sp"
-        android:text="@string/rmb"
+        android:gravity="end"
         android:layout_width="fill_parent"/>
 
 </LinearLayout>

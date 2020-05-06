@@ -274,7 +274,7 @@ public class RateActivity extends AppCompatActivity implements Runnable{
                     bundle.putFloat("dollar-rate",100f/Float.parseFloat(val));
                 }else if(str1.equals("欧元")){
                     bundle.putFloat("euro-rate",100f/Float.parseFloat(val));
-                }else if(str1.equals("韩元")){
+                }else if(str1.equals("韩国元")){
                     bundle.putFloat("won-rate",100f/Float.parseFloat(val));
                 }
             }
@@ -323,7 +323,7 @@ public class RateActivity extends AppCompatActivity implements Runnable{
                     bundle.putFloat("dollar-rate",100f/Float.parseFloat(val));
                 }else if(str1.equals("欧元")){
                     bundle.putFloat("euro-rate",100f/Float.parseFloat(val));
-                }else if(str1.equals("韩元")){
+                }else if(str1.equals("韩国元")){
                     bundle.putFloat("won-rate",100f/Float.parseFloat(val));
                 }
             }

@@ -23,13 +23,14 @@ public class MyAdapter extends ArrayAdapter {
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        //position表示位置，可以根据不同的position返回不同的view对象
         View itemView = convertView;
         if(itemView == null){//若为空，就进行填充
             //把布局文件转成view对象 当前行的视图
             itemView = LayoutInflater.from(getContext()).inflate(R.layout.list_item,parent,false);
         }
 
-        Map<String,String> map = (Map<String, String>) getItem(position);
+        Map<String,String> map = (Map<String, String>) getItem(position);//获得当前行的数据
         TextView title = (TextView) itemView.findViewById(R.id.itemTitle);
         TextView detail = (TextView) itemView.findViewById(R.id.itemDetail);
 
