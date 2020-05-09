@@ -111,7 +111,7 @@ public class MyList2Activity extends ListActivity implements Runnable, AdapterVi
 
         Message msg = handler.obtainMessage(7);
         msg.obj = retList;
-        handler.sendMessage(msg);
+        handler.sendMessage(msg);//别忘了这句！
         Log.i("thread", "sendmag... ");
     }
 
