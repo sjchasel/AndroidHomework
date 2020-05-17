@@ -15,14 +15,18 @@
         <activity android:name=".TestListActivity">
 
         </activity>
-        <activity android:name=".RateCalActivity" />
-        <activity android:name=".MyList2Activity" />
-        <activity android:name=".MyListActivity" >
+        <activity android:name=".RateCalActivity" android:theme="@style/Theme.AppCompat.Light.Dialog">
+
+        </activity>
+        <activity android:name=".MyList2Activity" >
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
+        </activity>
+        <activity android:name=".MyListActivity" >
+
         </activity>
         <activity android:name=".RateListActivity" />
         <activity android:name=".ConfigActivity" />

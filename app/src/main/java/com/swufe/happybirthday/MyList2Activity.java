@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class MyList2Activity extends ListActivity implements Runnable, AdapterView.OnItemClickListener {//ListActivity中已经有listView对象，因此不需要加载布局
+public class MyList2Activity extends ListActivity implements Runnable, AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {//ListActivity中已经有listView对象，因此不需要加载布局
 
     Handler handler;
     String TAG = "MyList2";
@@ -59,13 +59,14 @@ public class MyList2Activity extends ListActivity implements Runnable, AdapterVi
             }
         };
         getListView().setOnItemClickListener(this);//当行数据被点击时会调用this对象的onItemClick方法
+        getListView().setOnItemLongClickListener(this);//长按，当前对象做监听器，当前对象一定要实现接口
     }
     private void initListView(){
         listItems = new ArrayList<HashMap<String, String>>();
         for(int i = 0; i < 10; i++){
             HashMap<String, String> map = new HashMap<String, String>();
             map.put("ItemTitle","Rate:"+i);//标题文字
-            map.put("ItemDetail","detail:"+i);//标题文字
+            map.put("ItemDetail","detail："+i);//标题文字
             listItems.add(map);
         }
         //生成适配器的Item和动态数组对应的元素
@@ -141,5 +142,13 @@ public class MyList2Activity extends ListActivity implements Runnable, AdapterVi
         rateCal.putExtra("title",titleStr);
         rateCal.putExtra("rate",Float.parseFloat(detailStr));
         startActivity(rateCal);
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        Log.i(TAG, "onItemLongClick: 长按列表项position=" + position);
+        //删除操作
+        //。。。
+        return true;//如果改成true，就不会再执行短按事件；如果是false，在长按后仍会进行点击
     }
 }
